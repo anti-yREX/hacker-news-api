@@ -4,7 +4,7 @@ const cors = require('cors');
 const { getTopTenStories } = require('./helpers/topStories');
 const urls = require('./constants/urls');
 const cache = require('./helpers/cache');
-const { setNewStoryInDB, getStoryById } = require('./helpers/database');
+const { setNewStoryInDB, getAllPastStories } = require('./helpers/database');
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.get('/top-stories', cache, (req, res) => {
 });
 
 app.get('/past-stories', async (req, res) => {
-    res.send(await getStoryById(34640351));
+    res.send(await getAllPastStories());
 });
 
 app.get('/comments', (req, res) => {

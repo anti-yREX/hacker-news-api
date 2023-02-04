@@ -60,21 +60,33 @@ const setNewStoryInDB = (list) => {
             story.save((e) => {
                 if (e) {
                     console.error(e);
-                } else {
-                    console.log('Success', current);
                 }
             });
         }
     });
 }
 
-const getStoryById = async (id) => {
-    const story = await Story.exists({ _id: id });
-    console.log(story);
-    return story;
+const getAllPastStories = async (id) => {
+    const story = await Story.find()
+    return story.map((current) => {
+        const {
+            by,
+            time,
+            url,
+            score,
+            title,
+        } = current;
+        return {
+            title,
+            url,
+            score,
+            creationTime: time,
+            createdBy: by,
+        };
+    });
 }
 
 module.exports = {
     setNewStoryInDB,
-    getStoryById,
+    getAllPastStories,
 }
