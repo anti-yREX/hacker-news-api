@@ -1,6 +1,7 @@
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
+const { getTopTenStories } = require('./helpers/topStories.helper');
 const urls = require('./constants/urls');
 
 const app = express();
@@ -14,21 +15,9 @@ app.get('/top-stories', (req, res) => {
         const responseList = [];
         response.data.forEach((current, index) => {
             axios(`${urls.baseUrl}${urls.getItem(current)}`).then((curStoryRes) => {
-                const {
-                    title,
-                    url,
-                    score,
-                    time,
-                    by,
-                } = curStoryRes.data;
-                responseList.push({
-                    title,
-                    url,
-                    score,
-                    creationTime: time,
-                    createdBy: by,
-                });
+                responseList.push(curStoryRes.data);
                 if (index === response.data.length - 1) {
+                    const result = getTopTenStories(responseList);
                     res.send(result);
                 }
             });
