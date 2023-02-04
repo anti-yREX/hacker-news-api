@@ -14,33 +14,33 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/top-stories', cache, (req, res) => {
-	axios(`${urls.baseUrl}${urls.topStories}`).then((response) => {
-        const responseList = [];
-        response.data.forEach((current, index) => {
-            axios(`${urls.baseUrl}${urls.getItem(current)}`).then((curStoryRes) => {
-                responseList.push(curStoryRes.data);
-                if (index === response.data.length - 1) {
-                    const result = getTopTenStories(responseList);
-                    res.send(result.map((cur) => {
-                        const {
-                            title,
-                            url,
-                            score,
-                            time,
-                            by,
-                        } = cur;
-                        return {
-                            title,
-                            url,
-                            score,
-                            creationTime: time,
-                            user: by,
-                        };
-                    }));
-                    setNewStoryInDB(result);
-                }
-            });
-        });
+	axios(`${urls.baseUrl}${urls.topStories}`).then(async (response) => {
+        const responseList = await Promise.all(
+            response.data.map(async (current, index) => {
+                const res = await axios(`${urls.baseUrl}${urls.getItem(current)}`).then((curStoryRes) => {
+                    return curStoryRes.data;
+                });
+                return res;
+            })
+        );
+        const result = getTopTenStories(responseList);
+        res.send(result.map((cur) => {
+            const {
+                title,
+                url,
+                score,
+                time,
+                by,
+            } = cur;
+            return {
+                title,
+                url,
+                score,
+                creationTime: time,
+                user: by,
+            };
+        }));
+        setNewStoryInDB(result);
 	});
 });
 
