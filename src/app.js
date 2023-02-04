@@ -1,14 +1,17 @@
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
-const { getTopTenStories } = require('./helpers/topStories.helper');
+const { getTopTenStories } = require('./helpers/topStories');
 const urls = require('./constants/urls');
+const cache = require('./helpers/cache');
 
 const app = express();
 
 app.use(cors());
 
 app.use(express.json());
+
+app.use(cache)
 
 app.get('/top-stories', (req, res) => {
 	axios(`${urls.baseUrl}${urls.topStories}`).then((response) => {
