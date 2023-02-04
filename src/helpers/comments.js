@@ -13,7 +13,13 @@ const getCommentsByStoryId = async (id) => {
         return res;
     }));
 
-    return top10CommentIds.sort((a, b) => ((b.kids?.length || 0) - (a.kids?.length || 0))).slice(0, 10);
+    return top10CommentIds
+        .sort((a, b) => ((b.kids?.length || 0) - (a.kids?.length || 0)))
+        .slice(0, 10)
+        .map(({ text, by }) => ({
+            text,
+            user: by,
+        }));
 }
 
 module.exports = {

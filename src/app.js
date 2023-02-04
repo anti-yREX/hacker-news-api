@@ -34,7 +34,7 @@ app.get('/top-stories', cache, (req, res) => {
                             url,
                             score,
                             creationTime: time,
-                            createdBy: by,
+                            user: by,
                         };
                     }));
                     setNewStoryInDB(result);

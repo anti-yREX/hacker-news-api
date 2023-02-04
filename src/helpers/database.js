@@ -81,7 +81,7 @@ const getAllPastStories = async (id) => {
             url,
             score,
             creationTime: time,
-            createdBy: by,
+            user: by,
         };
     });
 }
