@@ -5,6 +5,7 @@ const { getTopTenStories } = require('./helpers/topStories');
 const urls = require('./constants/urls');
 const cache = require('./helpers/cache');
 const { setNewStoryInDB, getAllPastStories } = require('./helpers/database');
+const { getCommentsByStoryId } = require('./helpers/comments');
 
 const app = express();
 
@@ -20,7 +21,6 @@ app.get('/top-stories', cache, (req, res) => {
                 responseList.push(curStoryRes.data);
                 if (index === response.data.length - 1) {
                     const result = getTopTenStories(responseList);
-                    console.log(result);
                     res.send(result.map((cur) => {
                         const {
                             title,
@@ -48,8 +48,8 @@ app.get('/past-stories', async (req, res) => {
     res.send(await getAllPastStories());
 });
 
-app.get('/comments', (req, res) => {
-    res.send('comments');
+app.get('/comments', async (req, res) => {
+    res.send(await getCommentsByStoryId(req.query.id));
 });
 
 module.exports = app;
