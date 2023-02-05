@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+require('dotenv').config();
 
-const dbUsername = 'hacker-news-db-admin';
-const dbPassword = 'hacker-news-db-admin';
+const dbUsername = process.env.DATABASE_USERNAME;
+const dbPassword = process.env.DATABASE_PASSWORD;
 
 mongoose.set('strictQuery', true)
 
