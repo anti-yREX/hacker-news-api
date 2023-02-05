@@ -64,8 +64,10 @@ const getAllPastStories = async (id) => {
             url,
             score,
             title,
+            storyId,
         } = current;
         return {
+            id: storyId,
             title,
             url,
             score,

@@ -26,6 +26,7 @@ app.get('/top-stories', cache, (req, res) => {
         const result = getTopTenStories(responseList);
         res.send(result.map((cur) => {
             const {
+                id,
                 title,
                 url,
                 score,
@@ -33,6 +34,7 @@ app.get('/top-stories', cache, (req, res) => {
                 by,
             } = cur;
             return {
+                id,
                 title,
                 url,
                 score,
