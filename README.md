@@ -40,7 +40,7 @@ user|The username of the item's author.
 
 This enpoint can be accessed using `/past-stories` appended to `baseURL` ie. `http://localhost:3000/past-stories` .
 
-**Response Content:** All past stories that were served by `/top-stories` endpoint in the form of an array. Each element of array has contents exactly as same as `/top-stories`.
+**Response Content:** All past stories that were served by `/top-stories` are listed by this endpoint in the form of an array. Each element of array has contents exactly as same as `/top-stories`.
 
 ---
 
