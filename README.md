@@ -1,6 +1,8 @@
 # Hacker News API with caching
 
-**Problem Statement:** Use the Hacker News API available to build the API backend for the users with endpoints `/top-stories` , `/past-stories` and `/comments` .
+**Problem Statement:**
+
+Use the Hacker News API available to build the API backend for the users with endpoints `/top-stories` , `/past-stories` and `/comments` .
 
 ## Get Started
 
@@ -56,5 +58,3 @@ Key|Descriptions
 ---|------------
 text|Content of the comment.
 user|The username of the comment's author.
-
----
