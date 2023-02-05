@@ -16,7 +16,7 @@ app.use(express.json());
 app.get('/top-stories', cache, (req, res) => {
 	axios(`${urls.baseUrl}${urls.topStories}`).then(async (response) => {
         const responseList = await Promise.all(
-            response.data.map(async (current, index) => {
+            response.data.map(async (current) => {
                 const res = await axios(`${urls.baseUrl}${urls.getItem(current)}`).then((curStoryRes) => {
                     return curStoryRes.data;
                 });
@@ -49,7 +49,13 @@ app.get('/past-stories', async (req, res) => {
 });
 
 app.get('/comments', async (req, res) => {
-    res.send(await getCommentsByStoryId(req.query.id));
+    if (req.query?.id) {
+        res.send(await getCommentsByStoryId(req.query.id));
+    } else {
+        res.status(400).send({
+            message: 'Error: Required \'id\' query parameter'
+        });
+    }
 });
 
 module.exports = app;
